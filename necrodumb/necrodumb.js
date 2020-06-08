@@ -32,7 +32,9 @@ for (let j=0; j<types.length; j++)
 buttons[0].disabled = false;
 buttons[5].disabled = false;
 buttons[6].disabled = false;
+buttons[7].disabled = false;
 buttons[8].disabled = false;
+buttons[10].disabled = false;
 buttons[11].disabled = false;
 
 var goButton = document.getElementById('goButton');
