@@ -39,16 +39,19 @@ var goButton = document.getElementById('goButton');
 goButton.addEventListener('click', Generate);
 
 var fileInput = document.getElementById('fileInput');
-fileInput.addEventListener('change', function() {
-	Clear();
-	Papa.parse(fileInput.files[0], {
-		dynamicTyping: true,
-		complete: function(results) {
-			OnDatabaseLoaded(results.data);
-		}
+if (fileInput)
+{
+	fileInput.addEventListener('change', function() {
+		Clear();
+		Papa.parse(fileInput.files[0], {
+			dynamicTyping: true,
+			complete: function(results) {
+				OnDatabaseLoaded(results.data);
+			}
+		});
+		fileInput.style.fontWeight = 'bold';
 	});
-	fileInput.style.fontWeight = 'bold';
-});
+}
 
 var output = document.getElementById('output');
 
@@ -141,7 +144,10 @@ function Clear()
 	{
 		buttons[i].style.fontWeight = 'normal';
 	}
-	fileInput.style.fontWeight = 'normal';
+	if (fileInput)
+	{
+		fileInput.style.fontWeight = 'normal';
+	}
 	
 	goButton.disabled = true;
 	
