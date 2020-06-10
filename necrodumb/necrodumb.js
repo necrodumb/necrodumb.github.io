@@ -30,6 +30,9 @@ for (let j=0; j<types.length; j++)
 }
 
 buttons[0].disabled = false;
+buttons[1].disabled = false;
+buttons[2].disabled = false;
+buttons[4].disabled = false;
 buttons[5].disabled = false;
 buttons[6].disabled = false;
 buttons[7].disabled = false;
@@ -127,6 +130,14 @@ function Generate()
 		if (postProcess[i] == "1337Replacement")
 		{
 			name = DoPostProcess_1337Replacement(name)
+		}
+		if (postProcess[i] == "BonusConsonants")
+		{
+			name = DoPostProcess_BonusConsonants(name)
+		}
+		if (postProcess[i] == "RandomNumber")
+		{
+			name = DoPostProcess_RandomNumber(name)
 		}
 	}
 	
@@ -237,6 +248,59 @@ function DoPostProcess_1337Replacement(name)
 			}
 			j = name.indexOf(replacements[i][0], j+1);
 		}
+		j = 0
+	}
+	
+	return name
+}
+
+function DoPostProcess_BonusConsonants(name)
+{
+	var vowels = ['a', 'e', 'i', 'o', 'u']
+	var consonants = ['b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x', 'y', 'z']
+		
+	for (var i = 0; i < vowels.length; i++)
+	{
+		var j = name.indexOf(vowels[i], j);
+		while (j != -1)
+		{
+			if (Math.random() < 0.5 && j != 2)
+			{						
+				name = name.slice(0, j) + consonants[GetRandom(0, consonants.length-1)] + name.slice(j)
+			}
+			j = name.indexOf(vowels[i], j+2);
+		}
+		j = 0
+	}
+	
+	return name
+}
+
+function DoPostProcess_RandomNumber(name)
+{
+	var number = GetRandom(0, 99)
+	if (Math.random() < 0.25)
+	{
+		number = GetRandom(100, 999)
+	}
+	
+	if (Math.random() < 0.5)
+	{
+		name = name + ' ' + number
+	}
+	else
+	{
+		var i = name.indexOf(' ')
+		if (Math.random() < 0.5)
+		{
+			i = name.lastIndexOf(' ')
+		}
+		name = name.slice(0, i) + ' ' + number + ' ' + name.slice(i)
+	}
+	
+	if (number == 69)
+	{
+		name += '<br><br><i>Nice</i>'		
 	}
 	
 	return name
