@@ -132,6 +132,10 @@ function Generate()
 		{
 			name = DoPostProcess_1337Replacement(name)
 		}
+		if (postProcess[i] == "VikingReplacement")
+		{
+			name = DoPostProcess_VikingReplacement(name)
+		}
 		if (postProcess[i] == "BonusConsonants")
 		{
 			name = DoPostProcess_BonusConsonants(name)
@@ -241,6 +245,30 @@ function DoPostProcess_1337Replacement(name)
 	for (var i = 0; i < replacements.length; i++)
 	{
 		var j = name.toUpperCase().indexOf(replacements[i][0], j);
+		while (j != -1)
+		{
+			if (Math.random() < 0.25)
+			{
+				name = name.slice(0, j) + replacements[i][1] + name.slice(j+1)
+			}
+			j = name.indexOf(replacements[i][0], j+1);
+		}
+		j = 0
+	}
+	
+	return name
+}
+
+function DoPostProcess_VikingReplacement(name)
+{
+	var replacements = [
+  ['e','æ'],
+  ['o','ø'],
+  ['a','å']]
+	
+	for (var i = 0; i < replacements.length; i++)
+	{
+		var j = name.indexOf(replacements[i][0], j);
 		while (j != -1)
 		{
 			if (Math.random() < 0.25)
