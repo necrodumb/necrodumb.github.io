@@ -1,22 +1,22 @@
-Segments:	2	DoubleSegment:	2	OutputPrefix:	Pillaging...
-Forename	Surname1	SkipSurname2	Surname2		
-Skol	Axe	FALSE	axe		
-Jens	Frost	FALSE	skull		
-Thor	Blood	FALSE	beard		
-Thorsten	Berserk	FALSE	fur		
-Balder	Rune	FALSE	hoard		
-Sven	Hairy	FALSE	muscle		
-Harald	Ice	FALSE	sword		
-Eric	Giant	FALSE	bane		
-Olaf	Boat	FALSE	bastard		
-Gunnar	Plunder	FALSE	wolf		
-Halvar	Death	FALSE	howl		
-Ingolf	Wolf	FALSE	born		
-Ivar	Skull	FALSE	punch		
-Ragnar	Grim	FALSE	fist		
-Knut	Rock	FALSE	hammer		
-Sigurd	Storm	FALSE			
-Tyr					
-Axe					
-Skull					
-Bjorn					
+Segments:,2,DoubleSegment:,2,OutputPrefix:,Pillaging...
+Forename,Surname1,SkipSurname2,Surname2,,
+Skol,Axe,FALSE,axe,,
+Jens,Frost,FALSE,skull,,
+Thor,Blood,FALSE,beard,,
+Thorsten,Berserk,FALSE,fur,,
+Balder,Rune,FALSE,hoard,,
+Sven,Hairy,FALSE,muscle,,
+Harald,Ice,FALSE,sword,,
+Eric,Giant,FALSE,bane,,
+Olaf,Boat,FALSE,bastard,,
+Gunnar,Plunder,FALSE,wolf,,
+Halvar,Death,FALSE,howl,,
+Ingolf,Wolf,FALSE,born,,
+Ivar,Skull,FALSE,punch,,
+Ragnar,Grim,FALSE,fist,,
+Knut,Rock,FALSE,hammer,,
+Sigurd,Storm,FALSE,,,
+Tyr,,,,,
+Axe,,,,,
+Skull,,,,,
+Bjorn,,,,,
