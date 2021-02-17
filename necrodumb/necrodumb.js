@@ -14,7 +14,7 @@ for (let j=0; j<types.length; j++)
 			Clear();
 			console.log("Load [necrodumb/" + gangs[i] + types[j] + ".csv]") // TODO.
 			
-			Papa.parse("necrodumb/" + gangs[i] + types[j].toLowerCase() + ".csv", {
+			Papa.parse("necrodumb/" + gangs[i].toLowerCase() + types[j].toLowerCase() + ".csv", {
 				dynamicTyping: true,
 				download: true,
 				complete: function(results) {
