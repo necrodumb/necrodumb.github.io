@@ -37,6 +37,7 @@ buttons[5].disabled = false;
 buttons[6].disabled = false;
 buttons[7].disabled = false;
 buttons[8].disabled = false;
+buttons[9].disabled = false;
 buttons[10].disabled = false;
 buttons[11].disabled = false;
 
