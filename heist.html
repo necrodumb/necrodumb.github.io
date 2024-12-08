@@ -53,22 +53,22 @@
                 'numSegments'     : 11,         // Specify number of segments.
                 'segments'        :             // Define segments including colour and text.
                 [                               // font size and test colour overridden on backrupt segments.
-                   {'fillStyle' : '#ee1c24', 'text' : 'Pink', 'contents' : 'half dozen Genestealers'},
-                   {'fillStyle' : '#3cb878', 'text' : 'Gribbly', 'contents' : 'half dozen Malstrain Genestealers'},
-                   {'fillStyle' : '#f6989d', 'text' : 'Big and pink', 'contents' : 'Carnifex'},
-                   {'fillStyle' : '#00aef0', 'text' : 'Bounty hunting', 'contents' : 'Eyros Slagmyst'},
-                   {'fillStyle' : '#f26522', 'text' : 'Dead small', 'contents' : 'dozen Little Ghouls'},
-                   {'fillStyle' : '#a186be', 'text' : 'Dead big', 'contents' : 'triplet of Big Ghouls'},
-                   {'fillStyle' : '#e70697', 'text' : 'Ancient', 'contents' : 'C\'tan Shard of the Void Dragon'},
-                   {'fillStyle' : '#fff200', 'text' : 'Fighty', 'contents' : 'squad of Ork Boyz'},
-                   {'fillStyle' : '#f6989d', 'text' : 'Really fighty', 'contents' : 'Ghazghkull Mag Uruk Thraka'},
-                   {'fillStyle' : '#ee1c24', 'text' : 'Weird', 'contents' : 'Malifaux gang???'},
-                   {'fillStyle' : '#3cb878', 'text' : 'Hellish', 'contents' : 'Daemonic Possession'},
+                   {id : 0, 'fillStyle' : '#ee1c24', 'text' : 'Pink', 'contents' : 'half dozen Genestealers'},
+                   {id : 1, 'fillStyle' : '#3cb878', 'text' : 'Gribbly', 'contents' : 'half dozen Malstrain Genestealers'},
+                   {id : 2, 'fillStyle' : '#f6989d', 'text' : 'Big and pink', 'contents' : 'Carnifex'},
+                   {id : 3, 'fillStyle' : '#00aef0', 'text' : 'Bounty hunting', 'contents' : 'Eyros Slagmyst'},
+                   {id : 4, 'fillStyle' : '#f26522', 'text' : 'Dead small', 'contents' : 'dozen Little Ghouls'},
+                   {id : 5, 'fillStyle' : '#a186be', 'text' : 'Dead big', 'contents' : 'triplet of Big Ghouls'},
+                   {id : 6, 'fillStyle' : '#e70697', 'text' : 'Ancient', 'contents' : 'C\'tan Shard of the Void Dragon'},
+                   {id : 7, 'fillStyle' : '#fff200', 'text' : 'Fighty', 'contents' : 'squad of Ork Boyz'},
+                   {id : 8, 'fillStyle' : '#f6989d', 'text' : 'Really fighty', 'contents' : 'Ghazghkull Mag Uruk Thraka'},
+                   {id : 9, 'fillStyle' : '#ee1c24', 'text' : 'Weird', 'contents' : 'Malifaux gang???'},
+                   {id : 10, 'fillStyle' : '#3cb878', 'text' : 'Hellish', 'contents' : 'Daemonic Possession'},
                 ],
                 'animation' :           // Specify the animation to use.
                 {
                     'type'     : 'spinToStop',
-                    'duration' : 10,    // Duration in seconds.
+                    'duration' : 1,//10,    // Duration in seconds.
                     'spins'    : 3,     // Default number of complete spins.
                     'callbackFinished' : alertPrize,
                     'callbackSound'    : playTickSound,   // Function to call when the tick sound is to be triggered.
@@ -114,18 +114,22 @@
                 }
             }
 
+			let currentSegment = 0;
+
             function alertPrize(indicatedSegment)
             {
 				playSound(1);
 							
 				output.innerHTML = "It's a..." + indicatedSegment.contents;
 				
+				currentSegment = indicatedSegment.id;
+				
 				resetButton.disabled = false;
 				resetButton.style.display = 'inline';
             }
-			
+						
 			function reset()
-			{
+			{		
 				output.innerHTML = "";
 				
 				document.getElementById('spin_button').src = "heist/spin_on.png";
@@ -133,9 +137,15 @@
 				
 				resetButton.disabled = true;
 				resetButton.style.display = 'none';
+								
+				theWheel.segments = theWheel.segments.filter(segment => segment == null || segment.id != currentSegment);
+				
+				theWheel.numSegments--;
+				theWheel.pins.number--;
 				
 				theWheel.stopAnimation(false);
                 theWheel.rotationAngle = 0;
+				theWheel.updateSegmentSizes();
                 theWheel.draw();
 				
 				wheelSpinning = false;
