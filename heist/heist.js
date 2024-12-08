@@ -16,11 +16,6 @@ var loot = [
 	"Ghast"
 ]
 
-var festiveTypeButton = document.getElementById('festiveTypeButton');
-festiveTypeButton.addEventListener('click', function() {
-		// TODO: Load festive data.
-	});
-
 var openBoxButton = document.getElementById('openBoxButton');
 openBoxButton.addEventListener('click', OpenBox);
 

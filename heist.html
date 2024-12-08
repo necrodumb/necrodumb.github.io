@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
-	<body>
+    <head>
+        <link rel="stylesheet" href="heist/main.css" type="text/css" />
+        <script type="text/javascript" src="heist/Winwheel.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+    </head>
+	<!--<body>
 		<table>
 			<tbody>
-				<tr>
-					<td><p>Heist Type:</p></td>
-					<td><button id="festiveTypeButton">Festive</button></td>
-				</tr>
 				<tr>
 					<td><button id="openBoxButton">Open Box</button></td>
 					<td><button id="openLootButton">Open Loot</button></td>
@@ -17,5 +18,128 @@
 			</tbody>
 		</table>
 		<script src="heist/heist.js"></script>
-	</body>
+	</body>-->
+	    <body>
+        <div align="center">
+            <table cellpadding="0" cellspacing="0" border="0">
+            <tr>
+                <td>
+                    <div class="power_controls">
+                        <img id="spin_button" src="heist/spin_on.png" alt="Spin" onClick="startSpin();" />
+                    </div>
+                </td>
+                <td width="438" height="582" class="the_wheel" align="center" valign="center">
+                    <canvas id="canvas" width="434" height="434">
+                        <p style="{color: white}" align="center">Sorry, your browser doesn't support canvas. Please try another.</p>
+                    </canvas>
+                </td>
+            </tr>
+        </table>
+		<div class="result">
+			<br />
+			<br />
+			<p id="output"></p>
+			<br />
+			<button id="resetButton" onClick="reset();">Reset</button>
+		</div>
+        <script>
+            // Create new wheel object specifying the parameters at creation time.
+            let theWheel = new Winwheel({
+                'outerRadius'     : 212,        // Set outer radius so wheel fits inside the background.
+                'innerRadius'     : 75,         // Make wheel hollow so segments don't go all way to center.
+                'textFontSize'    : 16,         // Set default font size for the segments.
+                'textOrientation' : 'horizontal', // Make text vertial so goes down from the outside of wheel.
+                'textAlignment'   : 'outer',    // Align text to outside of wheel.
+                'numSegments'     : 11,         // Specify number of segments.
+                'segments'        :             // Define segments including colour and text.
+                [                               // font size and test colour overridden on backrupt segments.
+                   {'fillStyle' : '#ee1c24', 'text' : 'Pink', 'contents' : 'half dozen Genestealers'},
+                   {'fillStyle' : '#3cb878', 'text' : 'Gribbly', 'contents' : 'half dozen Malstrain Genestealers'},
+                   {'fillStyle' : '#f6989d', 'text' : 'Big and pink', 'contents' : 'Carnifex'},
+                   {'fillStyle' : '#00aef0', 'text' : 'Bounty hunting', 'contents' : 'Eyros Slagmyst'},
+                   {'fillStyle' : '#f26522', 'text' : 'Dead small', 'contents' : 'dozen Little Ghouls'},
+                   {'fillStyle' : '#a186be', 'text' : 'Dead big', 'contents' : 'triplet of Big Ghouls'},
+                   {'fillStyle' : '#e70697', 'text' : 'Ancient', 'contents' : 'C\'tan Shard of the Void Dragon'},
+                   {'fillStyle' : '#fff200', 'text' : 'Fighty', 'contents' : 'squad of Ork Boyz'},
+                   {'fillStyle' : '#f6989d', 'text' : 'Really fighty', 'contents' : 'Ghazghkull Mag Uruk Thraka'},
+                   {'fillStyle' : '#ee1c24', 'text' : 'Weird', 'contents' : 'Malifaux gang???'},
+                   {'fillStyle' : '#3cb878', 'text' : 'Hellish', 'contents' : 'Daemonic Possession'},
+                ],
+                'animation' :           // Specify the animation to use.
+                {
+                    'type'     : 'spinToStop',
+                    'duration' : 10,    // Duration in seconds.
+                    'spins'    : 3,     // Default number of complete spins.
+                    'callbackFinished' : alertPrize,
+                    'callbackSound'    : playTickSound,   // Function to call when the tick sound is to be triggered.
+                    'soundTrigger'     : 'pin'        // Specify pins are to trigger the sound, the other option is 'segment'.
+                },
+                'pins' :				// Turn pins on.
+                {
+                    'number'     : 11,
+                    'fillStyle'  : 'silver',
+                    'outerRadius': 4,
+                }
+            });
+			
+			var resetButton = document.getElementById('resetButton');
+			resetButton.disabled = true;
+			resetButton.style.display = 'none';
+			
+            let audio = [ new Audio('heist/tick.mp3'), new Audio('heist/tada.mp3')];
+
+            function playSound(index)
+            {
+                audio[index].pause();
+                audio[index].currentTime = 0;
+                audio[index].play();
+            }
+			
+			function playTickSound()
+			{
+				playSound(0);
+			}
+
+            let wheelSpinning = false;
+
+            function startSpin()
+            {
+                if (wheelSpinning == false)
+				{
+                    document.getElementById('spin_button').className = "";
+					document.getElementById('spin_button').src = "heist/spin_off.png";
+					theWheel.animation.spins = 6;
+                    theWheel.startAnimation();
+                    wheelSpinning = true;
+                }
+            }
+
+            function alertPrize(indicatedSegment)
+            {
+				playSound(1);
+							
+				output.innerHTML = "It's a..." + indicatedSegment.contents;
+				
+				resetButton.disabled = false;
+				resetButton.style.display = 'inline';
+            }
+			
+			function reset()
+			{
+				output.innerHTML = "";
+				
+				document.getElementById('spin_button').src = "heist/spin_on.png";
+				document.getElementById('spin_button').className = "clickable";
+				
+				resetButton.disabled = true;
+				resetButton.style.display = 'none';
+				
+				theWheel.stopAnimation(false);
+                theWheel.rotationAngle = 0;
+                theWheel.draw();
+				
+				wheelSpinning = false;
+			}
+        </script>
+    </body>
 </html>
