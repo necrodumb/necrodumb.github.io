@@ -44,6 +44,9 @@ buttons[11].disabled = false;
 var goButton = document.getElementById('goButton');
 goButton.addEventListener('click', Generate);
 
+var go10Button = document.getElementById('go10Button');
+go10Button.addEventListener('click', Generate10);
+
 var fileInput = document.getElementById('fileInput');
 if (fileInput)
 {
@@ -148,11 +151,19 @@ function Generate()
 	
 	if (outputPrefix == null)
 	{
-		output.innerHTML += "\n" + name
+		output.innerHTML += "<br/>" + name
 	}
 	else
 	{
-		output.innerHTML += "\n" + outputPrefix + name
+		output.innerHTML += "<br/>" + outputPrefix + name
+	}
+}
+
+function Generate10()
+{
+	for (var i=0; i<10; i++)
+	{
+		Generate();
 	}
 }
 
@@ -168,6 +179,7 @@ function Clear()
 	}
 	
 	goButton.disabled = true;
+	go10Button.disabled = true;
 	
 	database = null;
 	segments = 0
@@ -226,6 +238,7 @@ function OnDatabaseLoaded(data)
 	console.log(database)
 	
 	goButton.disabled = false;
+	go10Button.disabled = false;
 
 	output.innerHTML = ""
 	
