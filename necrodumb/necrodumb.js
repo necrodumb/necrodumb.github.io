@@ -148,11 +148,11 @@ function Generate()
 	
 	if (outputPrefix == null)
 	{
-		output.innerHTML = name
+		output.innerHTML += "\n" + name
 	}
 	else
 	{
-		output.innerHTML = outputPrefix + name
+		output.innerHTML += "\n" + outputPrefix + name
 	}
 }
 
@@ -226,6 +226,8 @@ function OnDatabaseLoaded(data)
 	console.log(database)
 	
 	goButton.disabled = false;
+
+	output.innerHTML = ""
 	
 	Generate();
 }
